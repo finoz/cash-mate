@@ -2,41 +2,41 @@ import { useState, useEffect } from "react";
 
 const itemList = [
   {
-    id: 1,
+    id: "panardo",
     name: "Panardo",
     notes: "Con salsiccia, prosciutto o wurstel, + salse",
     price: 5.0,
   },
   {
-    id: 2,
+    id: "panardo-plus",
     name: "Panardo plus",
     notes: "Aggiunta di verdure",
     price: 5.5,
   },
   {
-    id: 3,
-    name: "Patozze",
+    id: "patonze",
+    name: "Patonze",
     price: 2.5,
   },
   {
-    id: 4,
-    name: "Acqua (0,5L)",
-    price: 1.5,
-  },
-  {
-    id: 5,
-    name: "Bibite (0,33L)",
+    id: "bibita",
+    name: "Bibita",
     price: 2.5,
   },
   {
-    id: 6,
-    name: "Birra(0,33L)",
-    price: 3,
+    id: "birretta",
+    name: "Birretta",
+    price: 3.0,
   },
   {
-    id: 7,
-    name: "Ghiacciolo",
-    price: 1.5,
+    id: "acqua",
+    name: "Acqua",
+    price: 1,
+  },
+  {
+    id: "ghiacciolo",
+    name: "ghiacciolo",
+    price: 1.0,
   },
 ];
 
@@ -73,7 +73,7 @@ export default function App() {
       <header className="header">
         <h1>Cash Mate</h1>
         <button class="button" onClick={clearAll} disabled={clear}>
-          Clear All
+          Da capo
         </button>
       </header>
       <ul className="item-list">
@@ -89,7 +89,7 @@ export default function App() {
       </ul>
       <footer className="footer">
         <span className="total-main">Totalone {total} €</span>
-        <span className="total-items">{selectedItems.length} items</span>
+        <span className="total-items">{selectedItems.length} cosette</span>
       </footer>
     </main>
   );
@@ -115,7 +115,7 @@ function Item({ item, onAdd, onRemove, onClear }) {
   }, [onClear]);
 
   return (
-    <li className={`item ${count > 0 ? "item--used" : ""}`}>
+    <li className={`item item--${item.id} ${count > 0 ? "item--used" : ""}`}>
       <button className="item-remove" onClick={() => handleRemove(item)}>
         -
       </button>
