@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&display=swap');
+
+:root {
+  --color-text: #111111;
+  --color-soft: #3333;
+  --color-text-alt: #ffffff;
+  --color-bg-primary: #354795;
+  --color-bg-default: #e9e9e9;
+  --color-bg-highlight: #b8d0fc;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: "Roboto Mono", monospace;
+}
+
+body * {
+  font-family: "Roboto Mono", monospace;
+}
+
+body, #root {
+  height: 100vh;
+  width: 100%;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app {
+  height: 100%;
+  width: 100%;
+  max-width: 50rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.item-list {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  list-style: none;
+  gap: 1rem;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  border-radius: 0.3rem;
+  height: 5rem;
+  cursor: pointer;
+  background-color: var(--color-bg-default);
+}
+
+.item-remove,
+.item-add {
+  border: 0 none;
+  background-color: transparent;
+}
+
+.item-remove {
+  flex-shrink: 0;
+  width: 5rem;
+  font-weight: 300;
+  font-size: 3rem;
+  border-right: 1px solid var(--color-soft);
+}
+.item-add {
+  width: 100%;
+  flex-grow: 1;
+  display: grid;
+  grid-template-areas: 'counter name' 'counter price';
+  grid-template-columns: 5rem auto;
+}
+.item-counter {
+  grid-area: counter;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-weight: 700;
+  font-size: 2.4rem;
+  color: var(--color-soft);
+}
+
+.item-name {
+  grid-area: name;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: flex-end;
+  font-weight: 700;
+  font-size: 1.6rem;
+}
+
+.item-price {
+  grid-area: price;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1.2rem;
+}
+
+.item.item--used {
+  background-color: var(--color-bg-highlight);
+}
+.item--used .item-remove {
+  border-color: var(--color-bg-primary);
+}
+.item--used .item-counter {
+  color: var(--color-text);
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-text);
+}
+
+.footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: self-end;
+  padding: 1rem;
+  border-top: 1px solid var(--color-text);
+}
+
+.footer .total-main {
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+
+.button {
+  border: 1px solid var(--color-bg-primary);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-alt);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+.button:disabled {
+  color: var(--color-soft);
+  background-color: var(--color-bg-default);
+  border-color: var(--color-bg-default);
+  cursor: not-allowed;
+}
