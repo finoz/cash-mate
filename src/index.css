@@ -58,7 +58,7 @@ body, #root {
   display: flex;
   flex-direction: row;
   border-radius: 0.3rem;
-  height: 5rem;
+  height: 8rem;
   cursor: pointer;
   background-color: var(--color-bg-default);
   transition: all 0.1s ease;
@@ -178,7 +178,7 @@ body, #root {
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 700;
-  padding: 0.5rem 1rem;
+  padding: 1.2rem;
   border-radius: 0.3rem;
   cursor: pointer;
 }

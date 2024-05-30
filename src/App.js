@@ -89,7 +89,13 @@ export default function App() {
       </ul>
       <footer className="footer">
         <span className="total-main">Totalone {total} €</span>
-        <span className="total-items">{selectedItems.length} cosette</span>
+        <span className="total-items">
+          {selectedItems.length > 0
+            ? selectedItems.length > 1
+              ? ` ${selectedItems.length} cosette`
+              : " 1 cosetta"
+            : "niente proprio"}
+        </span>
       </footer>
     </main>
   );
