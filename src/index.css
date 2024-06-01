@@ -140,7 +140,8 @@ body, #root {
 .item.item--used.item--bibita {
   background-color: var(--color-bg-blue);
 }
-.item.item--used.item--birretta {
+.item.item--used.item--birretta 
+, .item.item--used.item--spritz {
   background-color: var(--color-bg-green);
 }
 .item.item--used.item--acqua,
