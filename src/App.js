@@ -29,6 +29,11 @@ const itemList = [
     price: 3.0,
   },
   {
+    id: "spritz",
+    name: "spritz", 
+    price: 4,
+  }, 
+  {
     id: "acqua",
     name: "Acqua",
     price: 1,
