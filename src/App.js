@@ -30,7 +30,7 @@ const itemList = [
   },
   {
     id: "cocktail",
-    name: "Cocktail", 
+    name: "Cocktail (gin tonic)", 
     price: 4,
   }, 
   {
