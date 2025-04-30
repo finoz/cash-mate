@@ -4,23 +4,23 @@ const itemList = [
   {
     id: "panardo",
     name: "Panardo",
-    notes: "Con salsiccia, prosciutto o wurstel, + salse",
+    notes: "Con salsiccia o wurstel, + salse",
     price: 5.0,
   },
   {
     id: "panardo-plus",
     name: "Panardo plus",
-    notes: "Aggiunta di verdure",
+    notes: "Aggiunta di verdure (cipolle, peperoni)",
     price: 5.5,
   },
   {
     id: "patonze",
     name: "Patonze",
-    price: 2.5,
+    price: 3,
   },
   {
     id: "bibita",
-    name: "Bibita",
+    name: "Bibita (cocozzo, coca zero)",
     price: 2.5,
   },
   {
@@ -29,19 +29,14 @@ const itemList = [
     price: 3.0,
   },
   {
-    id: "spritz",
-    name: "spritz", 
+    id: "cocktail",
+    name: "Cocktail", 
     price: 4,
   }, 
   {
     id: "acqua",
     name: "Acqua",
-    price: 1,
-  },
-  {
-    id: "ghiacciolo",
-    name: "ghiacciolo",
-    price: 1.0,
+    price: 1.5,
   },
 ];
 

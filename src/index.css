@@ -141,11 +141,10 @@ body, #root {
   background-color: var(--color-bg-blue);
 }
 .item.item--used.item--birretta 
-, .item.item--used.item--spritz {
+, .item.item--used.item--cocktail {
   background-color: var(--color-bg-green);
 }
-.item.item--used.item--acqua,
-.item.item--used.item--ghiacciolo {
+.item.item--used.item--acqua {
   background-color: var(--color-bg-white);
 }
 
