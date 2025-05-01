@@ -11,7 +11,7 @@ const itemList = [
     id: "panardo-plus",
     name: "Panardo plus",
     notes: "Aggiunta di verdure (cipolle, peperoni)",
-    price: 5.5,
+    price: 6,
   },
   {
     id: "patonze",
@@ -36,7 +36,7 @@ const itemList = [
   {
     id: "acqua",
     name: "Acqua",
-    price: 1.5,
+    price: 1,
   },
 ];
 
