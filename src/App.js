@@ -8,9 +8,27 @@ const itemList = [
     price: 5.0,
   },
   {
+    id: "piada-base",
+    name: "Piada easy",
+    notes: "Con prosciutto cotto o salame",
+    price: 5.0,
+  },
+  {
     id: "panardo-plus",
     name: "Panardo plus",
-    notes: "Aggiunta di verdure (cipolle, peperoni)",
+    notes: "Aggiunta di verdure (cipolle, peperoni, zucchine)",
+    price: 6,
+  },
+  {
+    id: "burger",
+    name: "Cheesburger",
+    notes: "Burger 200g, ceddar, pomodoro, insalata",
+    price: 6,
+  },
+  {
+    id: "piada-royal",
+    name: "Piada Royal",
+    notes: "Crudo e squacquerone",
     price: 6,
   },
   {
@@ -20,7 +38,7 @@ const itemList = [
   },
   {
     id: "bibita",
-    name: "Bibita (cocozzo, coca zero)",
+    name: "Bibita (cocozzo, fanta)",
     price: 2.5,
   },
   {
@@ -28,11 +46,6 @@ const itemList = [
     name: "Birretta",
     price: 3.0,
   },
-  {
-    id: "cocktail",
-    name: "Cocktail (gin tonic)", 
-    price: 4,
-  }, 
   {
     id: "acqua",
     name: "Acqua",

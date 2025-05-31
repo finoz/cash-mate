@@ -131,7 +131,10 @@ body, #root {
 }
 
 .item.item--used.item--panardo,
-.item.item--used.item--panardo-plus {
+.item.item--used.item--panardo-plus,
+.item.item--used.item--piada-base,
+.item.item--used.item--piada-royal,
+.item.item--used.item--burger {
   background-color: var(--color-bg-red);
 }
 .item.item--used.item--patonze {
