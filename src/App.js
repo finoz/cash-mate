@@ -101,12 +101,6 @@ export default function App() {
         ))}
       </ul>
       <footer className="footer">
-        <span
-          className="tshirt-call"
-          style={{ display: total >= 30 ? "block" : "none" }}
-        >
-          BUONO MAGLIA!
-        </span>
         <span className="total-main">Totalone {total} €</span>
         <span className="total-items">
           {selectedItems.length > 0
