@@ -140,7 +140,10 @@ function Item({ item, onAdd, onRemove, onClear }) {
       </button>
       <button className="item-add" onClick={() => handleAdd()}>
         <span className="item-counter">{count}</span>
-        <h3 className="item-name">{item.name}</h3>
+        <div className="item-label">
+          <h3 className="item-name">{item.name}</h3>
+          <span className="item-notes">{item.notes}</span>
+        </div>
         <span className="item-price">{item.price} €</span>
       </button>
     </li>

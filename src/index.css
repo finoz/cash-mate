@@ -84,7 +84,7 @@ body, #root {
   width: 100%;
   flex-grow: 1;
   display: grid;
-  grid-template-areas: 'counter name' 'counter price';
+  grid-template-areas: 'counter label' 'counter price';
   grid-template-columns: 5rem auto;
 }
 .item-counter {
@@ -99,14 +99,26 @@ body, #root {
   color: var(--color-soft);
 }
 
-.item-name {
-  grid-area: name;
+.item-label {
+  grid-area: label;
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  align-self: flex-end;
+  flex-direction: column;
+  justify-content: end;
+  align-items: start;
+  height: 100%;
+}
+
+.item-name {
+  display: flex;
   font-weight: 700;
   font-size: 1.6rem;
+}
+
+.item-notes {
+  display: flex;
+  font-weight: 300;
+  font-size: 1rem;
+  opacity: 0.4;
 }
 
 .item-price {
