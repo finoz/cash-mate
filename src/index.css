@@ -151,11 +151,9 @@ body, #root {
 .item.item--used.item--patonze {
   background-color: var(--color-bg-yellow);
 }
-.item.item--used.item--bibita {
-  background-color: var(--color-bg-blue);
-}
+.item.item--used.item--bibita,
 .item.item--used.item--birretta {
-  background-color: var(--color-bg-green);
+  background-color: var(--color-bg-blue);
 }
 .item.item--used.item--acqua,
 .item.item--used.item--ghiacciolo {
@@ -184,16 +182,6 @@ body, #root {
 .footer .total-main {
   font-size: 2.4rem;
   font-weight: 700;
-}
-
-.footer .tshirt-call{
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  font-size: 2rem;
-  line-height: 1;
-  width: 10rem;
-  color: var(--color-alert);
 }
 
 .button {
