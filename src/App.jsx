@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { QRCodeSVG } from "qrcode.react";
 
 const itemList = [
   {
@@ -8,27 +9,22 @@ const itemList = [
     price: 5.0,
   },
   {
-    id: "piada-base",
-    name: "Piada easy",
-    notes: "Con prosciutto cotto o salame",
-    price: 5.0,
-  },
-  {
     id: "panardo-plus",
     name: "Panardo plus",
     notes: "Aggiunta di verdure (cipolle, peperoni, zucchine)",
     price: 6,
   },
   {
-    id: "burger",
-    name: "Cheesburger",
-    notes: "Burger 200g, ceddar, pomodoro, insalata",
-    price: 6,
+    id: "piada-base",
+    name: "Piada easy",
+    notes: "Con prosciutto cotto o salame",
+    price: 5.0,
   },
+
   {
     id: "piada-royal",
     name: "Piada Royal",
-    notes: "Crudo e squacquerone",
+    notes: "Crudo, rucola e squacquerone",
     price: 6,
   },
   {
@@ -38,33 +34,58 @@ const itemList = [
   },
   {
     id: "bibita",
-    name: "Bibita (cocozzo, fanta)",
+    name: "Bibita (Coca, Sprite)",
     price: 2.5,
   },
   {
     id: "birretta",
     name: "Birretta",
-    price: 3.0,
+    price: 2.5,
   },
   {
     id: "acqua",
     name: "Acqua",
     price: 1,
   },
+  {
+    id: "ghiacciolo",
+    name: "Ghiacciolo",
+    price: 1,
+  },
 ];
 
 export default function App() {
   const [selectedItems, setSelectedItems] = useState([]);
-  const [total, setTotal] = useState(0);
-  const [clear, setClear] = useState(false);
+  const [paymentUrl, setPaymentUrl] = useState(null);
+  const [loadingPayment, setLoadingPayment] = useState(false);
+  const [paymentError, setPaymentError] = useState(null);
 
-  useEffect(() => {
-    setClear(selectedItems.length === 0);
-    setTotal(selectedItems.reduce((t, i) => t + i.price, 0));
-  }, [selectedItems]);
+  const total = selectedItems.reduce((t, i) => t + i.price, 0);
+  const clear = selectedItems.length === 0;
 
   function clearAll() {
     setSelectedItems([]);
+    setPaymentUrl(null);
+    setPaymentError(null);
+  }
+
+  async function handlePay() {
+    setLoadingPayment(true);
+    setPaymentError(null);
+    try {
+      const res = await fetch("/.netlify/functions/create-payment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: total }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Errore sconosciuto");
+      setPaymentUrl(data.redirect_url);
+    } catch (err) {
+      setPaymentError(err.message);
+    } finally {
+      setLoadingPayment(false);
+    }
   }
 
   function handleAdd(item) {
@@ -85,7 +106,7 @@ export default function App() {
     <main className="app">
       <header className="header">
         <h1>Cash Mate</h1>
-        <button class="button" onClick={clearAll} disabled={clear}>
+        <button className="button" onClick={clearAll} disabled={clear}>
           Da capo
         </button>
       </header>
@@ -109,7 +130,28 @@ export default function App() {
               : " 1 cosetta"
             : "niente proprio"}
         </span>
+        <button
+          className="button button--satispay"
+          onClick={handlePay}
+          disabled={total === 0 || loadingPayment}
+        >
+          {loadingPayment ? "Attendi..." : "Paga con Satispay"}
+        </button>
+        {paymentError && <span className="payment-error">{paymentError}</span>}
       </footer>
+
+      {paymentUrl && (
+        <div className="modal-overlay" onClick={() => setPaymentUrl(null)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <p className="modal-label">Scansiona per pagare</p>
+            <QRCodeSVG value={paymentUrl} size={220} />
+            <p className="modal-total">{total} €</p>
+            <button className="button" onClick={() => setPaymentUrl(null)}>
+              Chiudi
+            </button>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

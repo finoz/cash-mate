@@ -145,8 +145,7 @@ body, #root {
 .item.item--used.item--panardo,
 .item.item--used.item--panardo-plus,
 .item.item--used.item--piada-base,
-.item.item--used.item--piada-royal,
-.item.item--used.item--burger {
+.item.item--used.item--piada-royal {
   background-color: var(--color-bg-red);
 }
 .item.item--used.item--patonze {
@@ -155,11 +154,11 @@ body, #root {
 .item.item--used.item--bibita {
   background-color: var(--color-bg-blue);
 }
-.item.item--used.item--birretta 
-, .item.item--used.item--cocktail {
+.item.item--used.item--birretta {
   background-color: var(--color-bg-green);
 }
-.item.item--used.item--acqua {
+.item.item--used.item--acqua,
+.item.item--used.item--ghiacciolo {
   background-color: var(--color-bg-white);
 }
 
@@ -214,4 +213,54 @@ body, #root {
   background-color: var(--color-bg-default);
   border-color: var(--color-bg-default);
   cursor: not-allowed;
+}
+
+.button--satispay {
+  margin-top: 1rem;
+  align-self: stretch;
+  background-color: #e8000e;
+  border-color: #e8000e;
+  font-size: 1.2rem;
+  padding: 1.4rem;
+}
+
+.payment-error {
+  margin-top: 0.8rem;
+  font-size: 1rem;
+  color: #e8000e;
+  text-align: right;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+  max-width: 32rem;
+  width: 90%;
+}
+
+.modal-label {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.5;
+}
+
+.modal-total {
+  font-size: 3.6rem;
+  font-weight: 700;
 }
