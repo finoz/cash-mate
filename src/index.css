@@ -85,6 +85,8 @@ body, #root {
   width: 100%;
   flex-grow: 1;
   display: grid;
+  color: var(--color-text);
+  text-align: left;
   grid-template-areas: 'counter label' 'counter price';
   grid-template-columns: 5rem auto;
 }
@@ -202,4 +204,18 @@ body, #root {
   background-color: var(--color-bg-default);
   border-color: var(--color-bg-default);
   cursor: not-allowed;
+}
+
+.button--confirm {
+  margin-top: 1rem;
+  align-self: stretch;
+  font-size: 1.2rem;
+  padding: 1.4rem;
+}
+
+.save-error {
+  margin-top: 0.8rem;
+  font-size: 1rem;
+  color: #e8000e;
+  text-align: right;
 }
