@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "./supabase";
+import Login from "./Login";
 
 const itemList = [
   {
@@ -56,9 +57,23 @@ const itemList = [
 ];
 
 export default function App() {
+  const [session, setSession] = useState(null);
+  const [showLogin, setShowLogin] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
   const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
   const [saveError, setSaveError] = useState(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => setSession(data.session));
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_, s) => {
+      setSession(s);
+      if (s) setShowLogin(false);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  if (showLogin) return <Login onClose={() => setShowLogin(false)} />;
 
   const total = selectedItems.reduce((t, i) => t + i.price, 0);
   const clear = selectedItems.length === 0;
@@ -66,6 +81,7 @@ export default function App() {
   function clearAll() {
     setSelectedItems([]);
     setSaveError(null);
+    setSaved(false);
   }
 
   async function handleConfirm() {
@@ -106,15 +122,17 @@ export default function App() {
     if (itemsError) {
       setSaveError(itemsError.message);
     } else {
-      clearAll();
+      setSaved(true);
     }
   }
 
   function handleAdd(item) {
     setSelectedItems([...selectedItems, item]);
+    setSaved(false);
   }
 
   function handleRemove(item) {
+    setSaved(false);
     setSelectedItems((s) => {
       const index = s.findIndex((i) => i.id === item.id);
       if (index > -1) {
@@ -128,9 +146,15 @@ export default function App() {
     <main className="app">
       <header className="header">
         <h1>Cash Mate</h1>
-        <button className="button" onClick={clearAll} disabled={clear}>
-          Da capo
-        </button>
+        {session ? (
+          <button className="button" onClick={() => supabase.auth.signOut()}>
+            Esci
+          </button>
+        ) : (
+          <button className="button" onClick={() => setShowLogin(true)}>
+            Accedi
+          </button>
+        )}
       </header>
       <ul className="item-list">
         {itemList.map((item) => (
@@ -152,14 +176,21 @@ export default function App() {
               : " 1 cosetta"
             : "niente proprio"}
         </span>
-        <button
-          className="button button--confirm"
-          onClick={handleConfirm}
-          disabled={total === 0 || saving}
-        >
-          {saving ? "Salvo..." : "Conferma ordine"}
-        </button>
-        {saveError && <span className="save-error">{saveError}</span>}
+        <div className="footer-ctas">
+          <button className="button" onClick={clearAll} disabled={clear}>Da capo</button>
+          {session && (
+            <>
+              <button
+                className={`button button--confirm${saved ? " button--saved" : ""}`}
+                onClick={handleConfirm}
+                disabled={total === 0 || saving || saved}
+              >
+                {saving ? "Salvo..." : saved ? "Salvato" : "Conferma ordine"}
+              </button>
+              {saveError && <span className="save-error">{saveError}</span>}
+            </>
+          )}
+        </div>
       </footer>
     </main>
   );
