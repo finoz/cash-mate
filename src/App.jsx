@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { supabase } from "./supabase";
 
 const itemList = [
   {
@@ -33,7 +34,8 @@ const itemList = [
   },
   {
     id: "bibita",
-    name: "Bibita (Coca, Sprite)",
+    name: "Bibita",
+    notes: "Coca, sprite",
     price: 2.5,
   },
   {
@@ -55,12 +57,57 @@ const itemList = [
 
 export default function App() {
   const [selectedItems, setSelectedItems] = useState([]);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState(null);
 
   const total = selectedItems.reduce((t, i) => t + i.price, 0);
   const clear = selectedItems.length === 0;
 
   function clearAll() {
     setSelectedItems([]);
+    setSaveError(null);
+  }
+
+  async function handleConfirm() {
+    setSaving(true);
+    setSaveError(null);
+
+    const { data: order, error: orderError } = await supabase
+      .from("orders")
+      .insert({ total })
+      .select("id")
+      .single();
+
+    if (orderError) {
+      setSaveError(orderError.message);
+      setSaving(false);
+      return;
+    }
+
+    const orderItems = Object.values(
+      selectedItems.reduce((acc, item) => {
+        if (acc[item.id]) {
+          acc[item.id].quantity += 1;
+        } else {
+          acc[item.id] = {
+            order_id: order.id,
+            item_id: item.id,
+            item_name: item.name,
+            price: item.price,
+            quantity: 1,
+          };
+        }
+        return acc;
+      }, {})
+    );
+
+    const { error: itemsError } = await supabase.from("order_items").insert(orderItems);
+    setSaving(false);
+    if (itemsError) {
+      setSaveError(itemsError.message);
+    } else {
+      clearAll();
+    }
   }
 
   function handleAdd(item) {
@@ -105,6 +152,14 @@ export default function App() {
               : " 1 cosetta"
             : "niente proprio"}
         </span>
+        <button
+          className="button button--confirm"
+          onClick={handleConfirm}
+          disabled={total === 0 || saving}
+        >
+          {saving ? "Salvo..." : "Conferma ordine"}
+        </button>
+        {saveError && <span className="save-error">{saveError}</span>}
       </footer>
     </main>
   );
