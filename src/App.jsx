@@ -18,7 +18,7 @@ const itemList = [
   {
     id: "piada-base",
     name: "Piada easy",
-    notes: "Con prosciutto cotto o salame",
+    notes: "Con prosciutto cotto e formaggio",
     price: 5.0,
   },
 
@@ -27,6 +27,12 @@ const itemList = [
     name: "Piada Royal",
     notes: "Crudo, rucola e squacquerone",
     price: 6,
+  },
+{
+    id: "piada-nut",
+    name: "Piada Nutella",
+    notes: "sono pochissime",
+    price: 2.5,
   },
   {
     id: "patonze",
@@ -43,6 +49,11 @@ const itemList = [
     id: "birretta",
     name: "Birretta",
     price: 2.5,
+  },
+ {
+    id: "spritz",
+    name: "Spritz",
+    price: 4,
   },
   {
     id: "acqua",
