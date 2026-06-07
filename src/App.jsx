@@ -145,7 +145,7 @@ export default function App() {
   return (
     <main className="app">
       <header className="header">
-        <h1>Cash Mate</h1>
+        <h1>cashmate</h1>
         {session ? (
           <button className="button" onClick={() => supabase.auth.signOut()}>
             Esci

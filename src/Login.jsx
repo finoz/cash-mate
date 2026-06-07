@@ -24,7 +24,7 @@ export default function Login({ onClose }) {
           ← Torna
         </button>
       )}
-      <h1>Cash Mate</h1>
+      <h1>cashmate</h1>
       <form className="login-form" onSubmit={handleSubmit}>
         <input
           type="email"
