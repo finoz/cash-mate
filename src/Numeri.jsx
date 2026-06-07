@@ -3,7 +3,8 @@ import { supabase } from "./supabase";
 import Login from "./Login";
 
 export default function Numeri() {
-  const [session, setSession] = useState(undefined);
+  const [session, setSession] = useState(null);
+  const [showLogin, setShowLogin] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [ordersCount, setOrdersCount] = useState(0);
@@ -12,13 +13,14 @@ export default function Numeri() {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => setSession(data.session));
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_, s) => setSession(s));
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_, s) => {
+      setSession(s);
+      if (s) setShowLogin(false);
+    });
     return () => subscription.unsubscribe();
   }, []);
 
   useEffect(() => {
-    if (!session) return;
-
     async function load() {
       setLoading(true);
       setError(null);
@@ -48,7 +50,7 @@ export default function Numeri() {
     }
 
     load();
-  }, [session]);
+  }, []);
 
   async function handleDeleteAll() {
     const password = window.prompt("Per cancellare tutti i dati, scrivi la password:");
@@ -77,8 +79,7 @@ export default function Numeri() {
     setItemStats([]);
   }
 
-  if (session === undefined) return null;
-  if (!session) return <Login />;
+  if (showLogin) return <Login onClose={() => setShowLogin(false)} />;
 
   const totalItems = itemStats.reduce((t, i) => t + i.quantity, 0);
 
@@ -89,6 +90,15 @@ export default function Numeri() {
         <a className="button" href="/">
           Cassa
         </a>
+        {session ? (
+          <button className="button" onClick={() => supabase.auth.signOut()}>
+            Esci
+          </button>
+        ) : (
+          <button className="button" onClick={() => setShowLogin(true)}>
+            Accedi
+          </button>
+        )}
       </header>
 
       {loading && <p className="numeri-status">Carico...</p>}
@@ -116,11 +126,13 @@ export default function Numeri() {
             ))}
           </ul>
 
-          <div className="numeri-danger">
-            <button className="button button--danger" onClick={handleDeleteAll} disabled={deleting}>
-              {deleting ? "Cancello..." : "Cancella tutti i dati"}
-            </button>
-          </div>
+          {session && (
+            <div className="numeri-danger">
+              <button className="button button--danger" onClick={handleDeleteAll} disabled={deleting}>
+                {deleting ? "Cancello..." : "Cancella tutti i dati"}
+              </button>
+            </div>
+          )}
         </>
       )}
     </main>
